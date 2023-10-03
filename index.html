@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Quotes Animation</title>
+    <style>
+      body {
+        background: linear-gradient(to right, #83a4d4, #b6fbff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAGUExURUdwTPEAxvM3WAAAAEdFJOUw5jtSc5Ik6AAAACXBIWXMAAA7CAAAOwgFu0HU+AAAA2klEQVRIx2JYBAwYhABgwAbQPa/rECxJ+I8AC2H4D4W0Xa7ECRTD8A8NBEtguAbhGQwYvhFYsT6gGO5B8RQQDgNxB8U6mH4hGL4B4TqYfggMXwDxB0Vw/BLUw/ALUww/AFvDDwA2xh8AJsMfYHhsAhj8QvABLAEPYHh5AlaDE+D8mB4A1ocT4PyYHgBWhxPgfJgeAFaHE+B8mB4A1ocT4HyYHgBWhxPgfJgeAFaHE+B8mB4A1ocT4PyYHgBWhxPg/JgeAFaHE+B8mB4A1ocT4PyYHgAWhxPg/JgeAFaDE+B8WLoBAF4nD4/z0H4zAAAAAElFTkSuQmCC);
+        z-index: -2; /* Behind everything, including the video */
+        opacity: 0; /* Initially invisible; you can adjust the opacity to make it visible at nighttime */
+        pointer-events: none;
+        transition: opacity 1s ease-in-out;
+      }
+
+      body,
+      #quoteDisplay {
+        font-family: "Libre Baskerville", serif;
+      }
+
+      .video-background {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+      .video-background::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+      }
+
+      .video-background video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -1;
+        background-size: cover;
+        transition: 5s opacity;
+      }
+      #quoteDisplay,
+      #flippingPage {
+        transition: all 0.3s ease-in-out;
+      }
+      #book,
+      #quoteDisplay {
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      #book {
+        width: 610px;
+        height: 410px;
+        background: #ddd;
+        border: 1px solid #aaa;
+        display: flex;
+        justify-content: flex-end;
+        position: relative;
+        perspective: 1200px;
+      }
+
+      #quoteDisplay {
+        font-size: 24px;
+        width: 300px;
+        height: 400px;
+        background: #fff;
+        border-left: 1px solid #aaa;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-style: preserve-3d;
+        transform-origin: right center;
+        position: relative;
+        backface-visibility: hidden;
+        opacity: 0;
+      }
+
+      #flippingPage {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 300px;
+        height: 400px;
+        background: #fff;
+        transform: rotateY(-180deg);
+        transform-style: preserve-3d;
+        transform-origin: left;
+        transition: transform 2s ease-in-out;
+        backface-visibility: hidden;
+      }
+
+      #flippingPage::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #eee;
+        transform: rotateY(180deg);
+      }
+      .balloon {
+        width: 60px;
+        height: 80px;
+        background-color: #ff5050;
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        position: absolute;
+        bottom: -10%;
+        left: 20%;
+        animation: float 5s infinite alternate;
+        z-index: -1;
+      }
+
+      .balloon::before {
+        content: "";
+        width: 2px;
+        height: 50px;
+        background-color: #666;
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @keyframes float {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-90vh);
+        }
+      }
+      @keyframes moveBird {
+        0% {
+          left: -50%;
+        }
+        100% {
+          left: 150%;
+        }
+      }
+
+      .bird {
+        width: 100px;
+        position: absolute;
+        bottom: 70%;
+        height: auto;
+        z-index: 1;
+        left: -50%;
+        bottom: 65%;
+        animation: moveBird 10s linear infinite;
+        transform: scaleX(-1);
+      }
+
+      @keyframes moveBird {
+        0% {
+          left: -50%;
+          bottom: 65%;
+        }
+        50% {
+          bottom: 75%;
+        }
+        100% {
+          left: 150%;
+          bottom: 60%;
+        }
+      }
+      .sun,
+      .moon {
+        position: absolute;
+        z-index: 0; /* Placed behind other elements but in front of the video */
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        top: 10%;
+        left: 10%;
+        transition: all 1s ease-in-out;
+      }
+
+      .sun {
+        background: radial-gradient(circle, #ffd700, #ffa500);
+      }
+
+      .moon {
+        background: radial-gradient(circle, #e6e6fa, #d3d3d3);
+        display: none; /* Initially hide the moon; you can use JS to toggle between sun and moon */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="video-background">
+      <video playsinline autoplay muted loop>
+        <source src="shore1.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <img src="./bird.svg" class="bird" alt="A bird flying in the sky" />
+
+    <div class="sun"></div>
+    <div class="moon"></div>
+
+    <div id="book">
+      <div id="flippingPage"></div>
+      <div id="quoteDisplay"></div>
+    </div>
+
+    <script src="../quotesData.js"></script>
+    <script>
+      for (let i = 0; i < 5; i++) {
+        const birdEl = document.createElement("img");
+        birdEl.src = "./bird.svg";
+        birdEl.className = "bird";
+
+        const birdSize = 70 + Math.random() * 60;
+        birdEl.style.width = birdSize + "px";
+        birdEl.style.height = "auto";
+
+        birdEl.style.left = -50 - Math.random() * 50 + "%";
+        birdEl.style.bottom = 60 + Math.random() * 20 + "%";
+
+        birdEl.style.animationDuration = 8 + Math.random() * 7 + "s";
+
+        document.body.appendChild(birdEl);
+      }
+    </script>
+    <script>
+      const colors = ["#FF5050", "#FFC1A1", "#FFD700", "#8B4513", "#00FFFF"];
+
+      for (let i = 0; i < 5; i++) {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * 90 + "vw";
+        balloon.style.animationDuration = 4 + Math.random() * 3 + "s";
+        balloon.style.width = 40 + Math.random() * 40 + "px";
+        balloon.style.height = 50 + Math.random() * 60 + "px";
+        balloon.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        balloon.style.bottom = Math.random() * 20 + "vh";
+
+        document.body.appendChild(balloon);
+      }
+    </script>
+
+    <!-- <script>
+      for (let i = 0; i < 5; i++) {
+        const leaf = document.createElement("div");
+        leaf.className = "leaf";
+        leaf.style.left = Math.random() * 100 + "vw"; // slightly increase the range
+        leaf.style.bottom = Math.random() * 5 + "vh"; // add a random vertical offset
+        leaf.style.width = 20 + Math.random() * 30 + "px";
+        leaf.style.height = 20 + Math.random() * 30 + "px";
+        leaf.style.backgroundImage = "url('leaf.svg')";
+        leaf.style.animationDuration = 3 + Math.random() * 2 + "s";
+        leaf.style.animationDelay = Math.random() * 2 + "s";
+
+        document.body.appendChild(leaf);
+      }
+    </script> -->
+    <script>
+      let currentQuoteIndex = 0;
+      let isFlipped = true;
+
+      function displayNextQuote() {
+        const quoteDisplay = document.getElementById("quoteDisplay");
+        const flippingPage = document.getElementById("flippingPage");
+
+        if (isFlipped) {
+          flippingPage.style.transform = "rotateY(0deg)";
+        } else {
+          flippingPage.style.transform = "rotateY(-180deg)";
+        }
+        isFlipped = !isFlipped;
+
+        setTimeout(() => {
+          quoteDisplay.style.opacity = 1;
+          quoteDisplay.innerText = quotes[currentQuoteIndex];
+          currentQuoteIndex++;
+          if (currentQuoteIndex >= quotes.length) {
+            currentQuoteIndex = 0;
+          }
+          setTimeout(() => {
+            quoteDisplay.style.opacity = 0;
+            displayNextQuote();
+          }, 5000);
+        }, 2000);
+      }
+      function toggleDayNight() {
+        const sun = document.querySelector(".sun");
+        const moon = document.querySelector(".moon");
+        const bodyBefore = document.querySelector("body::before");
+
+        if (sun.style.display !== "none") {
+          sun.style.display = "none";
+          moon.style.display = "block";
+          bodyBefore.style.opacity = "1";
+          document.body.style.background =
+            "linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d)";
+        } else {
+          sun.style.display = "block";
+          moon.style.display = "none";
+          bodyBefore.style.opacity = "0";
+          document.body.style.background =
+            "linear-gradient(to right, #83a4d4, #b6fbff)";
+        }
+      }
+
+      displayNextQuote();
+    </script>
+  </body>
+</html>
