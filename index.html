@@ -26,8 +26,8 @@
         bottom: 0;
         left: 0;
         background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAGUExURUdwTPEAxvM3WAAAAEdFJOUw5jtSc5Ik6AAAACXBIWXMAAA7CAAAOwgFu0HU+AAAA2klEQVRIx2JYBAwYhABgwAbQPa/rECxJ+I8AC2H4D4W0Xa7ECRTD8A8NBEtguAbhGQwYvhFYsT6gGO5B8RQQDgNxB8U6mH4hGL4B4TqYfggMXwDxB0Vw/BLUw/ALUww/AFvDDwA2xh8AJsMfYHhsAhj8QvABLAEPYHh5AlaDE+D8mB4A1ocT4PyYHgBWhxPgfJgeAFaHE+B8mB4A1ocT4HyYHgBWhxPgfJgeAFaHE+B8mB4A1ocT4PyYHgBWhxPg/JgeAFaHE+B8mB4A1ocT4PyYHgAWhxPg/JgeAFaDE+B8WLoBAF4nD4/z0H4zAAAAAElFTkSuQmCC);
-        z-index: -2; /* Behind everything, including the video */
-        opacity: 0; /* Initially invisible; you can adjust the opacity to make it visible at nighttime */
+        z-index: -2;
+        opacity: 0;
         pointer-events: none;
         transition: opacity 1s ease-in-out;
       }
@@ -199,7 +199,7 @@
       .sun,
       .moon {
         position: absolute;
-        z-index: 0; /* Placed behind other elements but in front of the video */
+        z-index: 0;
         border-radius: 50%;
         width: 150px;
         height: 150px;
@@ -214,7 +214,7 @@
 
       .moon {
         background: radial-gradient(circle, #e6e6fa, #d3d3d3);
-        display: none; /* Initially hide the moon; you can use JS to toggle between sun and moon */
+        display: none;
       }
     </style>
   </head>
@@ -242,6 +242,7 @@
         const birdEl = document.createElement("img");
         birdEl.src = "./bird.svg";
         birdEl.className = "bird";
+        birdEl.alt = "A bird image";
 
         const birdSize = 70 + Math.random() * 60;
         birdEl.style.width = birdSize + "px";
@@ -274,21 +275,6 @@
       }
     </script>
 
-    <!-- <script>
-      for (let i = 0; i < 5; i++) {
-        const leaf = document.createElement("div");
-        leaf.className = "leaf";
-        leaf.style.left = Math.random() * 100 + "vw"; // slightly increase the range
-        leaf.style.bottom = Math.random() * 5 + "vh"; // add a random vertical offset
-        leaf.style.width = 20 + Math.random() * 30 + "px";
-        leaf.style.height = 20 + Math.random() * 30 + "px";
-        leaf.style.backgroundImage = "url('leaf.svg')";
-        leaf.style.animationDuration = 3 + Math.random() * 2 + "s";
-        leaf.style.animationDelay = Math.random() * 2 + "s";
-
-        document.body.appendChild(leaf);
-      }
-    </script> -->
     <script>
       let currentQuoteIndex = 0;
       let isFlipped = true;
