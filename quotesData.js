@@ -1,4 +1,5 @@
 const quotes = [
+  " The strongest people are not those who show strength in front of us but those who fight battles we know nothing about.",
   "Growth begins at the end of your comfort zone.",
   "Every new dawn is an opportunity to rewrite your story.",
   "In life’s symphony, setbacks are merely unexpected notes.",
@@ -113,7 +114,7 @@ const quotes = [
   "Mistakes are the portals of discovery.",
   "In the silence of the night, our deepest thoughts come to light.",
   "The soul would have no rainbow if the eyes had no tears.",
-  "The strongest people are not those who show strength in front of us but those who fight battles we know nothing about.",
+
   "Kindness is a language that the deaf can hear and the blind can see.",
   "Every closed door isn’t locked; sometimes you just need to push.",
   "True wisdom is knowing the depth of what you don't know.",
@@ -165,8 +166,6 @@ const quotes = [
   "The stories we weave today become the legends of tomorrow.",
   "In life's grand tapestry, every thread has its purpose.",
   "With hope as your compass, navigate the seas of uncertainty.",
-  // ... [previous quotes]
-
   "In the quiet moments, the universe whispers its secrets.",
   "Success is stumbling from failure to failure with no loss of enthusiasm.",
   "Within nature’s silence, we hear the most profound messages.",

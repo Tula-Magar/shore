@@ -80,8 +80,8 @@
       }
 
       #book {
-        width: 610px;
-        height: 410px;
+        width: 1000px;
+        height: 520px;
         background: #ddd;
         border: 1px solid #aaa;
         display: flex;
@@ -91,9 +91,8 @@
       }
 
       #quoteDisplay {
-        font-size: 24px;
-        width: 300px;
-        height: 400px;
+        width: 460px;
+        height: 480px;
         background: #fff;
         border-left: 1px solid #aaa;
         text-align: center;
@@ -105,14 +104,16 @@
         position: relative;
         backface-visibility: hidden;
         opacity: 0;
+        word-wrap: break-word;
+        padding: 20px;
       }
 
       #flippingPage {
         position: absolute;
         right: 0;
         top: 0;
-        width: 300px;
-        height: 400px;
+        width: 500px;
+        height: 520px;
         background: #fff;
         transform: rotateY(-180deg);
         transform-style: preserve-3d;
@@ -276,6 +277,36 @@
     </script>
 
     <script>
+      function setFontSize(text) {
+        const maxFontSize = 50;
+        const minFontSize = 40;
+        const maxLength = 100;
+
+        const fontSize = Math.max(
+          minFontSize,
+          maxFontSize - (text.length - maxLength) * 0.5
+        );
+
+        return Math.max(minFontSize, fontSize);
+      }
+      function estimateReadingTime(text) {
+        const words = text.split(/\s+/).length;
+        let fraction = 1;
+
+        if (words <= 30) {
+          return 15 * 1000;
+        } else if (words <= 20) {
+          return 20 * 1000;
+        } else {
+          return 45 * 1000;
+        }
+
+        const readingTimeMinutes = (words / wordsPerMinute) * fraction;
+
+        // Convert to milliseconds and add a buffer time for a better user experience
+        return (readingTimeMinutes + 0.5) * 60 * 1000;
+      }
+
       let currentQuoteIndex = 0;
       let isFlipped = true;
 
@@ -293,15 +324,18 @@
         setTimeout(() => {
           quoteDisplay.style.opacity = 1;
           quoteDisplay.innerText = quotes[currentQuoteIndex];
+          quoteDisplay.style.fontSize =
+            setFontSize(quotes[currentQuoteIndex]) + "px";
           currentQuoteIndex++;
           if (currentQuoteIndex >= quotes.length) {
             currentQuoteIndex = 0;
           }
+
           setTimeout(() => {
             quoteDisplay.style.opacity = 0;
             displayNextQuote();
-          }, 5000);
-        }, 2000);
+          }, estimateReadingTime(quotes[currentQuoteIndex]));
+        }, 2500);
       }
       function toggleDayNight() {
         const sun = document.querySelector(".sun");
