@@ -80,8 +80,8 @@
       }
 
       #book {
-        width: 1000px;
-        height: 520px;
+        width: 1400px;
+        height: 700px;
         background: #ddd;
         border: 1px solid #aaa;
         display: flex;
@@ -91,8 +91,8 @@
       }
 
       #quoteDisplay {
-        width: 460px;
-        height: 480px;
+        width: 680px;
+        height: 640px;
         background: #fff;
         border-left: 1px solid #aaa;
         text-align: center;
@@ -112,8 +112,8 @@
         position: absolute;
         right: 0;
         top: 0;
-        width: 500px;
-        height: 520px;
+        width: 700px;
+        height: 700px;
         background: #fff;
         transform: rotateY(-180deg);
         transform-style: preserve-3d;
@@ -181,18 +181,22 @@
         left: -50%;
         bottom: 65%;
         animation: moveBird 10s linear infinite;
-        transform: scaleX(-1);
+        will-change: transform;
+        transform: scaleX(-1) translateZ(0);
       }
 
       @keyframes moveBird {
         0% {
+          transform: scaleX(-1) translateX(0) translateY(0);
           left: -50%;
           bottom: 65%;
         }
         50% {
+          transform: scaleX(-1) translateX(0) translateY(10%);
           bottom: 75%;
         }
         100% {
+          transform: scaleX(-1) translateX(0) translateY(10%);
           left: 150%;
           bottom: 60%;
         }
@@ -278,8 +282,8 @@
 
     <script>
       function setFontSize(text) {
-        const maxFontSize = 50;
-        const minFontSize = 40;
+        const maxFontSize = 70;
+        const minFontSize = 50;
         const maxLength = 100;
 
         const fontSize = Math.max(
