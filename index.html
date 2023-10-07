@@ -76,9 +76,9 @@
         background-size: cover;
         transition: 5s opacity;
       }
-      #quoteDisplay,
+
       #flippingPage {
-        transition: all 0.3s ease-in-out;
+        transition: all 2s ease-in-out;
       }
       #book,
       #quoteDisplay {
@@ -97,8 +97,8 @@
       }
 
       #quoteDisplay {
-        width: 680px;
-        height: 640px;
+        width: 700px;
+        height: 700px;
         background: #fff;
         border-left: 1px solid #aaa;
         text-align: center;
@@ -111,6 +111,16 @@
         backface-visibility: hidden;
         opacity: 0;
         word-wrap: break-word;
+      }
+
+      .quoteContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        width: 99%;
+        overflow: hidden;
       }
 
       #flippingPage {
@@ -239,7 +249,9 @@
 
     <div id="book">
       <div id="flippingPage"></div>
-      <div id="quoteDisplay"></div>
+      <div id="quoteDisplay">
+        <div class="quoteContent"></div>
+      </div>
     </div>
 
     <script src="./quotesData.js"></script>
@@ -316,7 +328,8 @@
       let isFlipped = true;
 
       function displayNextQuote() {
-        const quoteDisplay = document.getElementById("quoteDisplay");
+        const quoteContent = document.querySelector(".quoteContent");
+
         const flippingPage = document.getElementById("flippingPage");
 
         if (isFlipped) {
@@ -328,7 +341,7 @@
 
         setTimeout(() => {
           quoteDisplay.style.opacity = 1;
-          quoteDisplay.innerText = quotes[currentQuoteIndex];
+          quoteContent.innerText = quotes[currentQuoteIndex];
           quoteDisplay.style.fontSize =
             setFontSize(quotes[currentQuoteIndex]) + "px";
           currentQuoteIndex++;
