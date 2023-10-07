@@ -10,11 +10,19 @@
 
     <title>Quotes Animation</title>
     <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
       body {
         background: linear-gradient(to right, #83a4d4, #b6fbff);
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 100vh;
+        overflow: hidden;
       }
       body::before {
         content: "";
@@ -78,7 +86,7 @@
       }
 
       #book {
-        max-width: 1400px;
+        width: 1400px;
         height: 700px;
         background: #ddd;
         border: 1px solid #aaa;
@@ -103,7 +111,6 @@
         backface-visibility: hidden;
         opacity: 0;
         word-wrap: break-word;
-        padding: 20px;
       }
 
       #flippingPage {
