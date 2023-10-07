@@ -15,8 +15,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        overflow: hidden;
       }
       body::before {
         content: "";
@@ -80,7 +78,7 @@
       }
 
       #book {
-        width: 1400px;
+        max-width: 1400px;
         height: 700px;
         background: #ddd;
         border: 1px solid #aaa;
@@ -181,22 +179,18 @@
         left: -50%;
         bottom: 65%;
         animation: moveBird 10s linear infinite;
-        will-change: transform;
-        transform: scaleX(-1) translateZ(0);
+        transform: scaleX(-1);
       }
 
       @keyframes moveBird {
         0% {
-          transform: scaleX(-1) translateX(0) translateY(0);
           left: -50%;
           bottom: 65%;
         }
         50% {
-          transform: scaleX(-1) translateX(0) translateY(10%);
           bottom: 75%;
         }
         100% {
-          transform: scaleX(-1) translateX(0) translateY(10%);
           left: 150%;
           bottom: 60%;
         }
