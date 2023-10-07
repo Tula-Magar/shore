@@ -76,9 +76,9 @@
         background-size: cover;
         transition: 5s opacity;
       }
-
+      #quoteDisplay,
       #flippingPage {
-        transition: all 2s ease-in-out;
+        transition: all 0.3s ease-in-out;
       }
       #book,
       #quoteDisplay {
@@ -120,6 +120,8 @@
         align-items: center;
         padding: 20px;
         width: 95%;
+        flex-shrink: 0;
+        flex-grow: 0;
         overflow: hidden;
       }
 
