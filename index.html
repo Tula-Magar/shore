@@ -324,7 +324,7 @@
         let synth = window.speechSynthesis;
         let voices = synth.getVoices();
         let utterance = new SpeechSynthesisUtterance(text);
-        utterance.voice = voices[0]; // You can choose different voices or let the user select
+        utterance.voice = voices[0];
         synth.speak(utterance);
       }
 
@@ -343,7 +343,7 @@
         isFlipped = !isFlipped;
 
         setTimeout(() => {
-          quoteDisplay.style.opacity = 0; // Fade out the current quote
+          quoteDisplay.style.opacity = 0;
           setTimeout(() => {
             quoteContent.innerText = PhilosophicalQuotes[currentQuoteIndex];
             quoteDisplay.style.fontSize =
@@ -352,17 +352,17 @@
             if (currentQuoteIndex >= PhilosophicalQuotes.length) {
               currentQuoteIndex = 0;
             }
-            quoteDisplay.style.opacity = 1; // Fade in the new quote
+            quoteDisplay.style.opacity = 1;
 
             setTimeout(() => {
               speak(quoteContent.innerText);
-            }, 1500); // Introducing a 1.5-second delay before speaking
+            }, 1500);
 
             setTimeout(() => {
-              quoteDisplay.style.opacity = 0; // Prepare to fade out for the next quote
+              quoteDisplay.style.opacity = 0;
               displayNextQuote();
-            }, 1.2 * estimateReadingTime(quoteContent.innerText)); // Subtracting 1 second for fade-out effect
-          }, 2000); // Giving 1 second for fade-out effect before changing the text
+            }, 1.2 * estimateReadingTime(quoteContent.innerText));
+          }, 2000);
         }, 2500);
       }
 
